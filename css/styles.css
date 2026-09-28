@@ -1,0 +1,627 @@
+:root {
+  --bg: #0f1419;
+  --surface: #1a222d;
+  --surface-2: #242f3d;
+  --border: #2f3d4f;
+  --text: #e8eef4;
+  --muted: #8b9cb0;
+  --accent: #3d8bfd;
+  --q1: #c94c4c;
+  --q2: #3d8bfd;
+  --q3: #d4a017;
+  --q4: #6b7b8c;
+  --success: #3dba7a;
+  --planner-width: 360px;
+  --radius: 10px;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.45;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.app-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.header-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn {
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn-sm {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8125rem;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.08);
+}
+
+.btn-secondary {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+
+.btn-ghost:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+.btn-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+}
+
+.app-main {
+  display: flex;
+  min-height: calc(100vh - 57px);
+}
+
+.planner {
+  flex: 0 0 var(--planner-width);
+  max-width: var(--planner-width);
+  padding: 1rem 1.25rem;
+  border-right: 1px solid var(--border);
+  background: var(--surface);
+  overflow-y: auto;
+}
+
+.planner-header h2 {
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+.planner-date {
+  margin: 0.25rem 0 1rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.now-panel {
+  background: var(--surface-2);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--border);
+}
+
+.now-label {
+  margin: 0 0 0.5rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.now-focus {
+  font-size: 1rem;
+}
+
+.now-focus .focus-title {
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.now-focus .focus-meta {
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.now-focus .focus-gap {
+  color: var(--accent);
+}
+
+.schedule-section h3 {
+  margin: 0 0 0.75rem;
+  font-size: 0.9375rem;
+}
+
+.schedule-list {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+}
+
+.schedule-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.875rem;
+}
+
+.schedule-item.is-now {
+  background: rgba(61, 139, 253, 0.12);
+  margin: 0 -0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border-radius: 6px;
+}
+
+.schedule-time {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.schedule-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.schedule-form input[type="time"],
+.schedule-form input[type="text"] {
+  width: 100%;
+  padding: 0.45rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+}
+
+.matrix {
+  flex: 1;
+  padding: 1rem;
+  overflow: auto;
+}
+
+.matrix-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0.75rem;
+  min-height: calc(100vh - 90px);
+}
+
+.quadrant {
+  display: flex;
+  flex-direction: column;
+  min-height: 180px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.quadrant-header {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border-bottom: 2px solid;
+}
+
+.quadrant-header.q1 {
+  border-color: var(--q1);
+  color: #f5a8a8;
+}
+
+.quadrant-header.q2 {
+  border-color: var(--q2);
+  color: #9ec5ff;
+}
+
+.quadrant-header.q3 {
+  border-color: var(--q3);
+  color: #f0d080;
+}
+
+.quadrant-header.q4 {
+  border-color: var(--q4);
+  color: var(--muted);
+}
+
+.quadrant-sub {
+  display: block;
+  font-weight: 400;
+  font-size: 0.6875rem;
+  color: var(--muted);
+  margin-top: 0.15rem;
+}
+
+.quadrant-drop {
+  flex: 1;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 80px;
+}
+
+.quadrant-drop.drag-over {
+  background: rgba(61, 139, 253, 0.08);
+  outline: 2px dashed var(--accent);
+  outline-offset: -4px;
+}
+
+.task-tile {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.5rem 0.6rem;
+  cursor: grab;
+  transition: box-shadow 0.15s;
+}
+
+.task-tile:active {
+  cursor: grabbing;
+}
+
+.task-tile.dragging {
+  opacity: 0.5;
+}
+
+.task-tile-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.35rem;
+}
+
+.task-desc {
+  flex: 1;
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.task-actions {
+  display: flex;
+  gap: 0.15rem;
+  flex-shrink: 0;
+}
+
+.task-actions button {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0.15rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+}
+
+.task-actions button:hover {
+  background: var(--border);
+  color: var(--text);
+}
+
+.task-actions .btn-complete:hover {
+  color: var(--success);
+}
+
+.task-expanded {
+  display: none;
+  margin-top: 0.65rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.8125rem;
+}
+
+.task-tile.is-expanded .task-expanded {
+  display: block;
+}
+
+.task-expanded label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--muted);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.task-expanded input,
+.task-expanded textarea {
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.4rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.8125rem;
+  font-family: inherit;
+}
+
+.task-expanded textarea {
+  resize: vertical;
+  min-height: 3rem;
+}
+
+.task-dialog {
+  border: none;
+  border-radius: var(--radius);
+  padding: 0;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  max-width: 420px;
+  width: calc(100% - 2rem);
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+}
+
+.task-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.task-dialog form {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.task-dialog h3 {
+  margin: 0 0 0.25rem;
+}
+
+.task-dialog label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.task-dialog input,
+.task-dialog textarea,
+.task-dialog select {
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.875rem;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.archive-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.archive-drawer.is-open {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.archive-backdrop {
+  position: absolute;
+  inset: 0;
+  border: none;
+  background: rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+}
+
+.archive-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(400px, 100%);
+  height: 100%;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.2s ease;
+}
+
+.archive-drawer.is-open .archive-panel {
+  transform: translateX(0);
+}
+
+.archive-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.archive-header h2 {
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+.archive-list {
+  list-style: none;
+  margin: 0;
+  padding: 1rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.archive-item {
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background: var(--surface-2);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 0.875rem;
+}
+
+.archive-item .arch-desc {
+  font-weight: 500;
+  margin-bottom: 0.35rem;
+}
+
+.archive-item .arch-meta {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.archive-empty {
+  color: var(--muted);
+  font-size: 0.875rem;
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.schedule-delete {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+
+.schedule-delete:hover {
+  color: var(--q1);
+}
+
+@media (max-width: 900px) {
+  .app-main {
+    flex-direction: column;
+  }
+
+  .planner {
+    flex: none;
+    max-width: none;
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .matrix-grid {
+    min-height: 520px;
+  }
+}
+
+/* Flatpickr — match Organisor dark theme */
+.flatpickr-calendar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  z-index: 200;
+}
+
+.task-dialog .flatpickr-calendar {
+  position: relative;
+  top: 0;
+  margin-top: 0.35rem;
+  width: 100%;
+  max-width: 100%;
+  box-shadow: none;
+  border: 1px solid var(--border);
+}
+
+.task-dialog .flatpickr-calendar.open {
+  display: block;
+}
+
+.flatpickr-months .flatpickr-month,
+.flatpickr-current-month .flatpickr-monthDropdown-months,
+.flatpickr-weekdays,
+.flatpickr-days {
+  background: var(--surface);
+}
+
+.flatpickr-current-month,
+.flatpickr-weekday,
+.flatpickr-day {
+  color: var(--text);
+}
+
+.flatpickr-day:hover,
+.flatpickr-day:focus {
+  background: var(--surface-2);
+  border-color: var(--border);
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.flatpickr-day.today {
+  border-color: var(--accent);
+}
+
+.flatpickr-months .flatpickr-prev-month,
+.flatpickr-months .flatpickr-next-month {
+  fill: var(--muted);
+}
+
+.flatpickr-months .flatpickr-prev-month:hover svg,
+.flatpickr-months .flatpickr-next-month:hover svg {
+  fill: var(--text);
+}
+
+span.flatpickr-weekday {
+  color: var(--muted);
+}
